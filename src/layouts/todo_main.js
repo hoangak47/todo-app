@@ -148,7 +148,7 @@ function TodoMain() {
       </div>
       <ul className="todo-main-body">
         {data.length !== 0 ? (
-          data.map((todo, index) => {
+          data?.map((todo, index) => {
             return (
               <li
                 className={`item ${editIndex === index && "edit"}`}
