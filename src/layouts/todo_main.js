@@ -147,7 +147,7 @@ function TodoMain() {
         </div>
       </div>
       <ul className="todo-main-body">
-        {data.length !== 0 ? (
+        {data?.length !== 0 ? (
           data?.map((todo, index) => {
             return (
               <li
