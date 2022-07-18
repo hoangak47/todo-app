@@ -1,8 +1,8 @@
-import { addTodo,  removeTodo, toggleTodo, toggleTodoAll } from "./todoSlice";
+import { addTodo,  removeTodo, toggleTodo } from "./todoSlice";
 
 import axios from "axios";
 
-const url = process.env.REACT_APP_BASE_URL;
+const url = 'https://todo-server-three.vercel.app/v1';
 
 export const setTodo = async (todo, dispatch) => {
   try {

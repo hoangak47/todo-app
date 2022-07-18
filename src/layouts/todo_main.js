@@ -40,7 +40,7 @@ function TodoMain() {
 
   const [data, setData] = useState([]);
 
-  const url = process.env.REACT_APP_BASE_URL;
+  const url = 'https://todo-server-three.vercel.app/v1';
 
   useEffect(() => {
     switch (switchIndex) {
