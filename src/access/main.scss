@@ -1,0 +1,129 @@
+.todo-main {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 20px;
+}
+
+.todo-main-header {
+  display: flex;
+  justify-content: space-evenly;
+
+  .todo-main-header-title {
+    margin-right: 5px;
+  }
+
+  .select {
+    font-size: medium;
+  }
+}
+
+.todo-main-body {
+  width: 100%;
+  height: 200px;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  margin-top: 20px;
+
+  .item-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-right: 10px;
+    font-size: unset;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .item-left {
+    display: flex;
+    align-items: center;
+    width: 70%;
+
+    &.completed {
+      text-decoration: line-through;
+    }
+
+    .title {
+      font-size: 20px;
+    }
+
+    input {
+      border: 1px solid #ccc;
+      width: 100%;
+      display: none;
+    }
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &.edit input {
+      display: block;
+    }
+
+    &.edit .title {
+      display: none;
+    }
+
+
+    &.edit .save-edit {
+      display: unset;
+    }
+
+    &.edit .item-checkbox{
+        width: 0;
+        opacity: 0;
+        margin-right: unset;
+    }
+  }
+
+  .save-edit {
+    display: none;
+    margin-right: 5px;
+  }
+
+  .item-action {
+    width: 30%;
+  }
+
+  .item-action-control {
+    text-align: end;
+  }
+
+  .item-action-time {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 8px;
+      color: var(--color-default);
+    }
+  }
+
+  .ic-info,
+  .ic-edit,
+  .ic-delete {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+
+  .ic-edit {
+    color: var(--color);
+  }
+
+  .ic-delete {
+    color: var(--danger);
+  }
+
+  .ic-info {
+    color: var(--color-default);
+  }
+}
