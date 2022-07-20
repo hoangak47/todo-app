@@ -39,8 +39,8 @@ export const todoSlice = createSlice({
       state.editIndex = action.payload;
     },
     changeValueTodo: (state, action) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id - 1 === state.editIndex) {
+      state.todos = state.todos.map((todo, index) => {
+        if (index === state.editIndex) {
           return { ...todo, title: action.payload };
         }
         return todo;

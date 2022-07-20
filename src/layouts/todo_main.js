@@ -40,7 +40,7 @@ function TodoMain() {
 
   const [data, setData] = useState([]);
 
-  const url = 'https://todo-server-three.vercel.app/v1';
+  const url = "https://todo-server-three.vercel.app/v1";
 
   useEffect(() => {
     switch (switchIndex) {
@@ -78,8 +78,8 @@ function TodoMain() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDelete = (id) => {
-    deleteTodo(id, dispatch);
+  const handleDelete = async (id) => {
+    await deleteTodo(id, dispatch);
     notification.open({
       message: "Delete successfully",
       description: "",
@@ -87,31 +87,30 @@ function TodoMain() {
     });
   };
 
-  const handleCheck = (todo) => {
+  const handleCheck = async (todo) => {
     const check = {
       id: todo.id,
       title: todo.title,
       completed: !todo.completed,
     };
-    updateCompleted(check, dispatch);
+    await updateCompleted(check, dispatch);
   };
 
-  const handleSave = (todo) => {
+  const handleSave = async (todo) => {
     const a = {
       ...todo,
       title: inputEdit,
     };
+    await updateTodo(a, dispatch);
     dispatch(changeValueTodo(a.title));
-    updateTodo(a, dispatch);
     setInputEdit("");
-    dispatch(indexEdit(null));
     notification.open({
       message: "Update successfully",
       description: "",
       icon: <CheckCircleOutlined style={{ color: "#4caf50" }} />,
     });
+    dispatch(indexEdit(null));
   };
-
 
   return (
     <div className="todo-main">
@@ -148,61 +147,47 @@ function TodoMain() {
       </div>
       <ul className="todo-main-body">
         {data?.map((todo, index) => {
-            return (
-              <li
-                className={`item ${editIndex === index && "edit"}`}
-                key={index}
-              >
-                <div className={`item-left ${todo.completed && "completed"}`}>
-                  <div
-                    className="item-checkbox"
-                    onClick={() => handleCheck(todo)}
-                  >
-                    {todo.completed && <CheckOutlined />}
-                  </div>
-                  <span className="title">{todo.title}</span>
-                  <input
-                    type="text"
-                    value={inputEdit}
-                    onChange={(e) => setInputEdit(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleSave(todo);
-                      }
-                    }}
-                  />
+          return (
+            <li className={`item ${editIndex === index && "edit"}`} key={index}>
+              <div className={`item-left ${todo.completed && "completed"}`}>
+                <div
+                  className="item-checkbox"
+                  onClick={() => handleCheck(todo)}
+                >
+                  {todo.completed && <CheckOutlined />}
                 </div>
-                <div className="item-action">
-                  <div className="item-action-control">
-                    <Button
-                      className="save-edit"
-                      type="primary"
-                      size="small"
-                      onClick={() => handleSave(todo)}
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      className="save-edit"
-                      size="small"
-                      onClick={() => dispatch(indexEdit(null))}
-                    >
-                      Cancel
-                    </Button>
-                    {!todo.completed ? (
-                      editIndex !== null ? (
-                        editIndex !== index ? (
-                          <EditOutlined
-                            className="ic-edit"
-                            onClick={() => {
-                              dispatch(indexEdit(index));
-                              setInputEdit(todo.title);
-                            }}
-                          />
-                        ) : (
-                          ""
-                        )
-                      ) : (
+                <span className="title">{todo.title}</span>
+                <input
+                  type="text"
+                  value={inputEdit}
+                  onChange={(e) => setInputEdit(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSave(todo);
+                    }
+                  }}
+                />
+              </div>
+              <div className="item-action">
+                <div className="item-action-control">
+                  <Button
+                    className="save-edit"
+                    type="primary"
+                    size="small"
+                    onClick={() => handleSave(todo)}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="save-edit"
+                    size="small"
+                    onClick={() => dispatch(indexEdit(null))}
+                  >
+                    Cancel
+                  </Button>
+                  {!todo.completed ? (
+                    editIndex !== null ? (
+                      editIndex !== index ? (
                         <EditOutlined
                           className="ic-edit"
                           onClick={() => {
@@ -210,30 +195,41 @@ function TodoMain() {
                             setInputEdit(todo.title);
                           }}
                         />
-                      )
-                    ) : (
-                      ""
-                    )}
-                    {editIndex !== null ? (
-                      editIndex !== index ? (
-                        <DeleteOutlined
-                          className="ic-delete"
-                          onClick={() => handleDelete(todo.id)}
-                        />
                       ) : (
                         ""
                       )
                     ) : (
+                      <EditOutlined
+                        className="ic-edit"
+                        onClick={() => {
+                          dispatch(indexEdit(index));
+                          setInputEdit(todo.title);
+                        }}
+                      />
+                    )
+                  ) : (
+                    ""
+                  )}
+                  {editIndex !== null ? (
+                    editIndex !== index ? (
                       <DeleteOutlined
                         className="ic-delete"
                         onClick={() => handleDelete(todo.id)}
                       />
-                    )}
-                  </div>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    <DeleteOutlined
+                      className="ic-delete"
+                      onClick={() => handleDelete(todo.id)}
+                    />
+                  )}
                 </div>
-              </li>
-            );
-          })}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

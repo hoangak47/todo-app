@@ -29,7 +29,7 @@ function TodoHeader() {
       return;
     }
     const add = {
-      id: todos.length + 1,
+      id: todos[todos.length - 1].id + 1,
       title: input.current.value,
       completed: false,
     };
